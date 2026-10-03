@@ -3,18 +3,19 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, ArrowUpRight, MapPin, Phone, Calendar } from 'lucide-react';
 import { useLanguage } from '@/lib/context/LanguageContext';
+import { BrandMark } from './BrandMark';
 
 const NAV_ITEMS = [
-  { name: 'About', href: '/#about', match: ['/#about'] },
-  { name: 'Rooms', href: '/rooms', match: ['/rooms'] },
-  { name: 'Facilities', href: '/facilities', match: ['/facilities', '/#facilities'] },
-  { name: 'Bhojanshala', href: '/bhojanshala', match: ['/bhojanshala', '/#bhojanshala'] },
-  { name: 'Palitana', href: '/palitana', match: ['/palitana'] },
-  { name: 'Gallery', href: '/gallery', match: ['/gallery', '/#gallery'] },
-  { name: 'Contact', href: '/contact', match: ['/contact', '/#contact'] },
+  { name: 'About', href: '/#about', num: '01', match: ['/#about'] },
+  { name: 'Rooms', href: '/rooms', num: '02', match: ['/rooms'] },
+  { name: 'Facilities', href: '/facilities', num: '03', match: ['/facilities', '/#facilities'] },
+  { name: 'Bhojanshala', href: '/bhojanshala', num: '04', match: ['/bhojanshala', '/#bhojanshala'] },
+  { name: 'Palitana', href: '/palitana', num: '05', match: ['/palitana'] },
+  { name: 'Gallery', href: '/gallery', num: '06', match: ['/gallery', '/#gallery'] },
+  { name: 'Contact', href: '/contact', num: '07', match: ['/contact', '/#contact'] },
 ];
 
 export function Header() {
@@ -22,6 +23,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { language, setLanguage } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
 
   const isHome = pathname === '/';
 
@@ -43,48 +45,37 @@ export function Header() {
     return item.match.some((m) => pathname.startsWith(m));
   };
 
+  const isDarkNavbar = isScrolled || !isHome;
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || !isHome
-            ? 'bg-[#FCFAF5]/95 backdrop-blur-md py-3.5 border-b border-[#D8C4A8]/60 shadow-sm text-[#2B1D17]'
-            : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5 text-white'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ease-out ${
+          isDarkNavbar
+            ? 'bg-[#F8F3E8]/96 backdrop-blur-md py-3 sm:py-3.5 border-b border-[#9B7049]/20 shadow-sm text-[#241A15]'
+            : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4 sm:py-5 text-[#FFFDF8]'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             
-            {/* Brand Logo & Title */}
-            <Link href="/" className="flex items-center gap-3 group select-none">
-              <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center font-serif font-bold text-sm border transition-all duration-300 shadow-sm ${
-                  isScrolled || !isHome
-                    ? 'bg-[#3A2418] text-[#C7A15A] border-[#C7A15A]/40'
-                    : 'bg-white/10 text-[#C7A15A] border-[#C7A15A]/60 backdrop-blur-md'
-                }`}
-              >
-                NK
+            {/* Brand Logo & Monogram */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="hidden sm:block">
+                <BrandMark
+                  variant="full"
+                  theme={isDarkNavbar ? 'dark' : 'light'}
+                />
               </div>
-              <div className="flex flex-col">
-                <span
-                  className={`font-serif font-medium text-base sm:text-lg tracking-wide leading-tight transition-colors duration-300 ${
-                    isScrolled || !isHome ? 'text-[#2B1D17]' : 'text-[#FFFDF8]'
-                  }`}
-                >
-                  SHRI NIRAV KHIMAT BHAVAN
-                </span>
-                <span
-                  className={`text-[9px] uppercase tracking-[0.22em] font-semibold transition-colors duration-300 ${
-                    isScrolled || !isHome ? 'text-[#A95339]' : 'text-[#C7A15A]'
-                  }`}
-                >
-                  Palitana · Jain Dharamshala
-                </span>
+              <div className="block sm:hidden">
+                <BrandMark
+                  variant="mobile"
+                  theme={isDarkNavbar ? 'dark' : 'light'}
+                />
               </div>
             </Link>
 
-            {/* Desktop Navigation Items */}
+            {/* Desktop Navigation Links (>= 1024px) */}
             <nav className="hidden lg:flex items-center gap-7">
               {NAV_ITEMS.map((item) => {
                 const isActive = isCurrentActive(item);
@@ -92,30 +83,35 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`text-xs uppercase tracking-[0.16em] font-serif transition-all duration-200 py-1 relative ${
+                    className={`text-xs uppercase tracking-[0.18em] font-serif transition-colors duration-200 py-1 relative group ${
                       isActive
-                        ? 'text-[#A95339] font-bold'
-                        : isScrolled || !isHome
-                        ? 'text-[#2B1D17]/80 hover:text-[#A95339] font-medium'
-                        : 'text-white/85 hover:text-white font-medium'
+                        ? 'text-[#C7A15A] font-bold'
+                        : isDarkNavbar
+                        ? 'text-[#241A15]/85 hover:text-[#C7A15A] font-medium'
+                        : 'text-[#FFFDF8]/90 hover:text-[#C7A15A] font-medium'
                     }`}
                   >
                     <span>{item.name}</span>
-                    {isActive && (
-                      <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#A95339] rounded-full" />
+                    {isActive ? (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#C7A15A] rounded-full"
+                      />
+                    ) : (
+                      <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#C7A15A] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
                     )}
                   </Link>
                 );
               })}
             </nav>
 
-            {/* Right Side Actions: Language Pill & Booking CTA */}
-            <div className="hidden sm:flex items-center gap-3">
-              {/* Language Switcher */}
+            {/* Right Action: Language Selector & Booking Button */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              {/* Compact Language Selector */}
               <div
-                className={`flex rounded-full border p-0.5 transition-colors ${
-                  isScrolled || !isHome
-                    ? 'border-[#D8C4A8] bg-[#F7F3EA]'
+                className={`flex rounded-full border p-0.5 transition-colors duration-300 ${
+                  isDarkNavbar
+                    ? 'border-[#9B7049]/30 bg-white/70 shadow-xs'
                     : 'border-white/30 bg-black/30 backdrop-blur-md'
                 }`}
               >
@@ -124,11 +120,12 @@ export function Header() {
                   onClick={() => setLanguage('en')}
                   className={`cursor-pointer rounded-full border-none px-2.5 py-[3px] font-sans text-[11px] font-bold transition-all ${
                     language === 'en'
-                      ? 'bg-[#3A2418] text-[#FFFDF8] shadow-xs'
-                      : isScrolled || !isHome
-                      ? 'bg-transparent text-[#2B1D17]'
-                      : 'bg-transparent text-white/80'
+                      ? 'bg-[#3A2418] text-[#F8F3E8] shadow-xs'
+                      : isDarkNavbar
+                      ? 'bg-transparent text-[#241A15] hover:text-[#C7A15A]'
+                      : 'bg-transparent text-white/80 hover:text-white'
                   }`}
+                  aria-label="Switch to English"
                 >
                   EN
                 </button>
@@ -137,41 +134,40 @@ export function Header() {
                   onClick={() => setLanguage('gu')}
                   className={`cursor-pointer rounded-full border-none px-2.5 py-[3px] font-sans text-[11px] font-bold transition-all ${
                     language === 'gu'
-                      ? 'bg-[#3A2418] text-[#FFFDF8] shadow-xs'
-                      : isScrolled || !isHome
-                      ? 'bg-transparent text-[#2B1D17]'
-                      : 'bg-transparent text-white/80'
+                      ? 'bg-[#3A2418] text-[#F8F3E8] shadow-xs'
+                      : isDarkNavbar
+                      ? 'bg-transparent text-[#241A15] hover:text-[#C7A15A]'
+                      : 'bg-transparent text-white/80 hover:text-white'
                   }`}
+                  aria-label="Switch to Gujarati"
                 >
                   ગુ
                 </button>
               </div>
 
-              {/* Book A Room Button */}
+              {/* Book A Room Button (Always visible on desktop + tablet) */}
               <Link
                 href="/booking"
-                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-serif font-bold uppercase tracking-widest transition-all shadow-sm active:scale-95 ${
-                  isScrolled || !isHome
-                    ? 'bg-[#A95339] hover:bg-[#2B1D17] text-[#FFFDF8]'
-                    : 'bg-[#C7A15A] hover:bg-[#DFBE7D] text-[#241A15]'
+                className={`hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-serif font-bold uppercase tracking-widest transition-all shadow-sm active:scale-95 ${
+                  isDarkNavbar
+                    ? 'bg-[#3A2418] hover:bg-[#241A15] text-[#F8F3E8]'
+                    : 'bg-[#C7A15A] hover:bg-[#DFBE7D] text-[#241A15] shadow-goldGlow'
                 }`}
               >
                 <Calendar className="w-3.5 h-3.5" />
                 <span>Book A Room</span>
               </Link>
-            </div>
 
-            {/* Mobile Menu Button */}
-            <div className="flex items-center gap-2 lg:hidden">
+              {/* Mobile Menu Toggle Button */}
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 type="button"
-                className={`p-2 rounded-full transition-colors ${
-                  isScrolled || !isHome
-                    ? 'text-[#2B1D17] hover:bg-[#D8C4A8]/20'
+                className={`lg:hidden p-2 rounded-full transition-colors ${
+                  isDarkNavbar
+                    ? 'text-[#241A15] hover:bg-[#9B7049]/10'
                     : 'text-white hover:bg-white/10'
                 }`}
-                aria-label="Open menu"
+                aria-label="Open navigation menu"
               >
                 <Menu className="w-6 h-6" />
               </button>
@@ -185,51 +181,47 @@ export function Header() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 bg-[#1F1511]/98 backdrop-blur-2xl text-[#FCFAF5] flex flex-col justify-between p-6 sm:p-10"
+            className="fixed inset-0 z-50 bg-[#241A15]/98 backdrop-blur-2xl text-[#F8F3E8] flex flex-col justify-between p-6 sm:p-10"
           >
-            {/* Top Bar inside Menu */}
+            {/* Top Header inside Drawer */}
             <div className="flex items-center justify-between border-b border-[#C7A15A]/20 pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-[#3A2418] border border-[#C7A15A] flex items-center justify-center font-serif font-bold text-sm text-[#C7A15A]">
-                  NK
-                </div>
-                <div>
-                  <span className="font-serif font-bold text-base block text-[#FFFDF8]">
-                    SHRI NIRAV KHIMAT BHAVAN
-                  </span>
-                  <span className="text-[9px] uppercase tracking-widest text-[#C7A15A] font-semibold block">
-                    Palitana · Gujarat
-                  </span>
-                </div>
-              </div>
+              <BrandMark variant="full" theme="light" />
+
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 rounded-full bg-white/10 text-[#FCFAF5] hover:bg-white/20 transition-colors"
+                className="p-2.5 rounded-full bg-white/10 text-[#F8F3E8] hover:bg-white/20 transition-colors"
                 aria-label="Close menu"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
-            {/* Links List */}
-            <nav className="space-y-3 my-auto py-6">
+            {/* Staggered Navigation Items */}
+            <nav className="space-y-4 my-auto py-6">
               {NAV_ITEMS.map((item, idx) => (
                 <motion.div
                   key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={shouldReduceMotion ? {} : { opacity: 0, x: -25 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04 * idx, duration: 0.3 }}
+                  transition={{ delay: 0.04 * idx, duration: 0.35, ease: 'easeOut' }}
                 >
                   <Link
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="group flex items-center justify-between py-2 text-2xl font-serif font-light text-[#FCFAF5] hover:text-[#C7A15A] transition-colors"
+                    className="group flex items-center justify-between py-1.5 border-b border-white/5 hover:border-[#C7A15A]/30 transition-colors"
                   >
-                    <span>{item.name}</span>
+                    <div className="flex items-baseline gap-4">
+                      <span className="font-mono text-xs text-[#C7A15A]/70 font-semibold">
+                        {item.num}
+                      </span>
+                      <span className="font-serif text-2xl sm:text-3xl font-light text-[#F8F3E8] group-hover:text-[#C7A15A] transition-colors">
+                        {item.name}
+                      </span>
+                    </div>
                     <ArrowUpRight className="w-5 h-5 text-[#9B7049] group-hover:text-[#C7A15A] transition-colors" />
                   </Link>
                 </motion.div>
@@ -238,22 +230,24 @@ export function Header() {
 
             {/* Bottom Actions */}
             <div className="pt-6 border-t border-[#C7A15A]/20 space-y-4">
-              {/* Mobile Language Switcher */}
+              {/* Language Switcher in Mobile Drawer */}
               <div className="flex items-center justify-between pb-2 text-xs">
-                <span className="text-white/60">Language:</span>
+                <span className="text-[#F8F3E8]/60 uppercase tracking-widest font-mono text-[10px]">
+                  Language / ભાષા
+                </span>
                 <div className="flex gap-1 bg-white/10 p-1 rounded-full border border-white/20">
                   <button
                     onClick={() => setLanguage('en')}
-                    className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      language === 'en' ? 'bg-[#C7A15A] text-[#1F1511]' : 'text-white'
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${
+                      language === 'en' ? 'bg-[#C7A15A] text-[#241A15]' : 'text-[#F8F3E8]'
                     }`}
                   >
                     English
                   </button>
                   <button
                     onClick={() => setLanguage('gu')}
-                    className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      language === 'gu' ? 'bg-[#C7A15A] text-[#1F1511]' : 'text-white'
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${
+                      language === 'gu' ? 'bg-[#C7A15A] text-[#241A15]' : 'text-[#F8F3E8]'
                     }`}
                   >
                     ગુજરાતી
@@ -261,16 +255,18 @@ export function Header() {
                 </div>
               </div>
 
+              {/* Book Room Button */}
               <Link
                 href="/booking"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 bg-[#A95339] hover:bg-[#C7A15A] text-[#FFFDF8] hover:text-[#1F1511] py-4 rounded-full font-serif font-bold text-xs uppercase tracking-widest transition-colors shadow-lg"
+                className="w-full flex items-center justify-center gap-2 bg-[#C7A15A] hover:bg-[#DFBE7D] text-[#241A15] py-4 rounded-full font-serif font-bold text-xs uppercase tracking-widest shadow-goldGlow transition-transform active:scale-95"
               >
                 <Calendar className="w-4 h-4" />
                 <span>Reserve Room Online</span>
               </Link>
 
-              <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-[#FCFAF5]/70 pt-2 gap-2">
+              {/* Contact Assistance */}
+              <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-[#F8F3E8]/70 pt-2 gap-2">
                 <span className="flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-[#C7A15A]" />
                   Taleti Road, Palitana

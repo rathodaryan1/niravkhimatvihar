@@ -9,7 +9,7 @@ import type {
   Room,
   RoomBlock,
   RoomType,
-} from '@/lib/types';
+} from '../types';
 import {
   calculateAuthoritativePrice,
   calculateNights,
@@ -17,7 +17,7 @@ import {
   getHoldExpirationDate,
   isHoldActive,
   isRoomUnavailable,
-} from '@/lib/booking/logic';
+} from '../booking/logic';
 
 // Initial Mock Seed Store
 const INITIAL_ROOM_TYPES: RoomType[] = [
@@ -473,31 +473,62 @@ class DataStore {
     };
   }
 
-  // Cancel Booking
-  async cancelBooking(publicBookingId: string, phone: string, reason: string, adminId?: string): Promise<Booking> {
-    const booking = await this.lookupBooking(publicBookingId, phone);
-    if (!booking) throw new Error('Booking not found or contact mismatch');
+  // Cancel Booking (Supports both customer phone verification and admin override)
+  async cancelBooking(
+    bookingIdOrPublicId: string,
+    phoneOrReason: string = '',
+    reasonOrAdminId?: string,
+    adminId?: string
+  ): Promise<Booking> {
+    const booking = this.bookings.find(
+      (b) =>
+        b.id === bookingIdOrPublicId ||
+        b.public_booking_id.toUpperCase() === bookingIdOrPublicId.trim().toUpperCase()
+    );
+    if (!booking) throw new Error('Booking not found');
+
+    let actualReason = 'Cancelled by administration';
+    let actualAdminId: string | undefined = undefined;
+
+    if (reasonOrAdminId && !adminId) {
+      const customer = this.customers.find((c) => c.id === booking.customer_id);
+      const isPhone = /^\+?[\d\s-]{8,}$/.test(phoneOrReason);
+      if (isPhone && customer) {
+        if (customer.phone.replace(/\D/g, '') !== phoneOrReason.replace(/\D/g, '')) {
+          throw new Error('Contact phone does not match booking records');
+        }
+        actualReason = reasonOrAdminId;
+      } else {
+        actualReason = phoneOrReason;
+        actualAdminId = reasonOrAdminId;
+      }
+    } else if (adminId) {
+      actualReason = phoneOrReason;
+      actualAdminId = adminId;
+    } else {
+      actualReason = phoneOrReason || 'Cancelled';
+    }
 
     if (booking.status === 'CANCELLED') {
       throw new Error('This booking is already cancelled');
     }
 
     if (booking.status === 'CHECKED_IN' || booking.status === 'CHECKED_OUT') {
-      throw new Error('Cannot cancel a booking that has already checked in');
+      throw new Error('Cannot cancel a booking that has already checked in or checked out');
     }
 
     booking.status = 'CANCELLED';
     booking.cancelled_at = new Date().toISOString();
-    booking.cancellation_reason = reason;
+    booking.cancellation_reason = actualReason;
     booking.updated_at = new Date().toISOString();
 
     // Audit Log
     this.addAuditLog({
-      admin_id: adminId,
+      admin_id: actualAdminId,
       action: 'BOOKING_CANCELLED',
       entity_type: 'BOOKING',
       entity_id: booking.id,
-      metadata: { public_booking_id: booking.public_booking_id, reason },
+      metadata: { public_booking_id: booking.public_booking_id, reason: actualReason },
     });
 
     return booking;
@@ -613,20 +644,32 @@ class DataStore {
     const occupiedRooms = this.rooms.filter((r) => {
       return this.bookings.some(
         (b) =>
-          b.status === 'CHECKED_IN' &&
+          (b.status === 'CHECKED_IN' || (b.status === 'CONFIRMED' && b.check_in <= today && b.check_out > today)) &&
           b.booking_rooms?.some((br) => br.room_id === r.id)
       );
     }).length;
 
-    const availableRoomsCount = this.rooms.length - occupiedRooms;
+    const availableRoomsCount = Math.max(0, this.rooms.length - occupiedRooms);
 
     const pendingPaymentsCount = this.bookings.filter(
       (b) => isHoldActive(b) && b.status === 'PENDING_PAYMENT'
     ).length;
 
+    const todaysRevenue = this.bookings
+      .filter((b) => (b.status === 'CONFIRMED' || b.status === 'CHECKED_IN' || b.status === 'CHECKED_OUT') && b.created_at.startsWith(today))
+      .reduce((sum, b) => sum + Number(b.total), 0);
+
     const totalRevenue = this.bookings
       .filter((b) => b.status === 'CONFIRMED' || b.status === 'CHECKED_IN' || b.status === 'CHECKED_OUT')
       .reduce((sum, b) => sum + Number(b.total), 0);
+
+    const todaysBookings = this.bookings
+      .filter((b) => b.created_at.startsWith(today) || b.check_in === today)
+      .map((b) => ({
+        ...b,
+        customer: this.customers.find((c) => c.id === b.customer_id),
+        room: b.booking_rooms?.[0]?.room || this.rooms.find((r) => r.id === b.booking_rooms?.[0]?.room_id),
+      }));
 
     const recentBookings = this.bookings
       .slice()
@@ -638,6 +681,41 @@ class DataStore {
         room: b.booking_rooms?.[0]?.room || this.rooms.find((r) => r.id === b.booking_rooms?.[0]?.room_id),
       }));
 
+    const roomTypeStats = this.roomTypes.map((rt) => {
+      const typeRooms = this.rooms.filter((r) => r.room_type_id === rt.id);
+      const occupied = typeRooms.filter((r) =>
+        this.bookings.some(
+          (b) =>
+            (b.status === 'CHECKED_IN' || (b.status === 'CONFIRMED' && b.check_in <= today && b.check_out > today)) &&
+            b.booking_rooms?.some((br) => br.room_id === r.id)
+        )
+      ).length;
+      return {
+        id: rt.id,
+        name: rt.name,
+        total: typeRooms.length,
+        occupied,
+        available: typeRooms.length - occupied,
+        price: rt.base_price,
+      };
+    });
+
+    const recentPayments = this.payments
+      .slice()
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .slice(0, 5)
+      .map((p) => {
+        const booking = this.bookings.find((b) => b.id === p.booking_id);
+        const customer = booking ? this.customers.find((c) => c.id === booking.customer_id) : null;
+        return {
+          ...p,
+          public_booking_id: booking?.public_booking_id || 'NKV-RES',
+          customer_name: customer?.full_name || 'Yatri',
+        };
+      });
+
+    const recentActivity = this.auditLogs.slice(0, 6);
+
     return {
       todaysArrivals,
       todaysDepartures,
@@ -645,8 +723,13 @@ class DataStore {
       availableRoomsCount,
       totalRoomsCount: this.rooms.length,
       pendingPaymentsCount,
+      todaysRevenue,
       totalRevenue,
+      todaysBookings,
       recentBookings,
+      roomTypeStats,
+      recentPayments,
+      recentActivity,
     };
   }
 

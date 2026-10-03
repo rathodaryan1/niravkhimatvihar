@@ -1,4 +1,4 @@
-import type { Booking, RoomBlock, RoomType } from '@/lib/types';
+import type { Booking, RoomBlock, RoomType } from '../types';
 
 /**
  * Checks whether two date ranges overlap.

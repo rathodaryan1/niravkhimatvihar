@@ -19,12 +19,19 @@ export async function GET(request: NextRequest) {
     const statusFilter = searchParams.get('status');
     const search = searchParams.get('search')?.toLowerCase();
 
-    let bookings = dbStore.bookings.map((b) => ({
-      ...b,
-      customer: dbStore.customers.find((c) => c.id === b.customer_id),
-      room: b.booking_rooms?.[0]?.room || dbStore.rooms.find((r) => r.id === b.booking_rooms?.[0]?.room_id),
-      payment: dbStore.payments.find((p) => p.booking_id === b.id),
-    }));
+    let bookings = dbStore.bookings.map((b) => {
+      const customer = dbStore.customers.find((c) => c.id === b.customer_id);
+      const room = b.booking_rooms?.[0]?.room || dbStore.rooms.find((r) => r.id === b.booking_rooms?.[0]?.room_id);
+      const roomType = dbStore.roomTypes.find((rt) => rt.id === room?.room_type_id);
+      const payment = dbStore.payments.find((p) => p.booking_id === b.id);
+      return {
+        ...b,
+        customer,
+        room,
+        roomType,
+        payment,
+      };
+    });
 
     if (statusFilter && statusFilter !== 'ALL') {
       bookings = bookings.filter((b) => b.status === statusFilter);
@@ -34,8 +41,10 @@ export async function GET(request: NextRequest) {
       bookings = bookings.filter(
         (b) =>
           b.public_booking_id.toLowerCase().includes(search) ||
-          b.customer?.full_name.toLowerCase().includes(search) ||
-          b.customer?.phone.includes(search)
+          b.customer?.full_name?.toLowerCase().includes(search) ||
+          b.customer?.phone?.includes(search) ||
+          b.customer?.email?.toLowerCase().includes(search) ||
+          b.room?.room_number?.toLowerCase().includes(search)
       );
     }
 
