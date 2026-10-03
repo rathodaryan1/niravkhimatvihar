@@ -329,9 +329,9 @@ function BookingContent() {
         body: JSON.stringify({
           bookingId: holdBookingId,
           publicBookingId,
-          razorpay_payment_id: paymentId,
-          razorpay_order_id: orderId,
-          razorpay_signature: signature,
+          razorpayPaymentId: paymentId,
+          razorpayOrderId: orderId,
+          razorpaySignature: signature,
         }),
       });
 
@@ -361,28 +361,28 @@ function BookingContent() {
   };
 
   return (
-    <div className="bg-[#F7F3EA] min-h-screen py-8 sm:py-12">
+    <div className="bg-[#F8F3E8] min-h-screen py-8 sm:py-12">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
         {/* Compact Editorial Header (#4) */}
-        <div className="border-b border-[#D8C4A8]/60 pb-5 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="border-b border-[#9B7049]/30 pb-5 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-1">
-            <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#A95339] font-bold block">
+            <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#C7A15A] font-bold block">
               SHRI NIRAV KHIMAT BHAVAN · PALITANA, GUJARAT
             </span>
-            <h1 className="font-serif text-3xl sm:text-4xl text-[#2B1D17] font-light tracking-tight leading-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl text-[#3A2418] font-bold tracking-tight leading-tight">
               BOOK YOUR STAY
             </h1>
-            <p className="text-xs sm:text-sm text-[#2B1D17]/70 font-light max-w-xl">
+            <p className="text-xs sm:text-sm text-[#6B4630] font-normal max-w-xl">
               Find a peaceful room for your Palitana journey.
             </p>
           </div>
 
-          <div className="text-left sm:text-right text-xs text-[#2B1D17]/60">
+          <div className="text-left sm:text-right text-xs text-[#6B4630]">
             <span>Yatri Helpdesk:</span>
             <a
               href="tel:02848253050"
-              className="font-serif text-sm font-semibold text-[#2B1D17] hover:text-[#A95339] block mt-0.5"
+              className="font-serif text-sm font-bold text-[#3A2418] hover:text-[#C7A15A] block mt-0.5"
             >
               02848 253050 · +91 93766 56100
             </a>
@@ -407,23 +407,23 @@ function BookingContent() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
                   transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="bg-[#FCFAF5] border border-[#D8C4A8] rounded-3xl p-6 sm:p-10 shadow-sm space-y-8"
+                  className="bg-[#FFFDF8] border border-[#9B7049]/30 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8"
                 >
                   <div className="space-y-1">
-                    <span className="text-[11px] font-mono uppercase tracking-widest text-[#A95339] font-bold block">
+                    <span className="text-[11px] font-mono uppercase tracking-widest text-[#C7A15A] font-bold block">
                       STEP 01 OF 06
                     </span>
-                    <h2 className="font-serif text-2xl sm:text-3xl font-light text-[#2B1D17]">
+                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#3A2418]">
                       Select Stay Dates & Party
                     </h2>
-                    <p className="text-xs text-[#2B1D17]/70 font-light">
+                    <p className="text-xs text-[#6B4630]">
                       Choose your arrival and departure schedule for sacred Shatrunjaya pilgrimage.
                     </p>
                   </div>
 
                   {/* Custom Calendar Popover Selector (#5) */}
                   <div className="space-y-2">
-                    <label className="block text-xs font-serif font-medium text-[#2B1D17] uppercase tracking-wider">
+                    <label className="block text-xs font-serif font-bold text-[#3A2418] uppercase tracking-wider">
                       Pilgrimage Dates
                     </label>
                     <BookingDateSelector
@@ -439,71 +439,71 @@ function BookingContent() {
                   {/* Yatris & Rooms Steppers (#6) */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
                     {/* Yatris Stepper */}
-                    <div className="bg-[#F7F3EA] border border-[#D8C4A8]/40 rounded-2xl p-5 space-y-3">
+                    <div className="bg-[#F8F3E8] border border-[#9B7049]/30 rounded-2xl p-5 space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono uppercase tracking-wider text-[#A95339] font-bold">
+                        <span className="text-xs font-mono uppercase tracking-wider text-[#C7A15A] font-bold">
                           HOW MANY YATRIS?
                         </span>
-                        <Users className="w-4 h-4 text-[#A95339]" />
+                        <Users className="w-4 h-4 text-[#C7A15A]" />
                       </div>
 
                       <div className="flex items-center justify-between pt-1">
                         <button
                           type="button"
                           onClick={() => setGuests(Math.max(1, guests - 1))}
-                          className="w-12 h-12 rounded-full bg-[#FCFAF5] border border-[#D8C4A8] text-xl font-medium text-[#2B1D17] hover:bg-[#A95339] hover:text-white transition-colors flex items-center justify-center shadow-xs"
+                          className="w-12 h-12 rounded-full bg-[#FFFDF8] border border-[#9B7049]/30 text-xl font-bold text-[#3A2418] hover:bg-[#3A2418] hover:text-[#FFFDF8] transition-colors flex items-center justify-center shadow-xs"
                           aria-label="Decrease guests"
                         >
                           −
                         </button>
-                        <span className="font-serif text-3xl font-light text-[#2B1D17] w-12 text-center">
+                        <span className="font-serif text-3xl font-bold text-[#3A2418] w-12 text-center">
                           {guests}
                         </span>
                         <button
                           type="button"
                           onClick={() => setGuests(Math.min(12, guests + 1))}
-                          className="w-12 h-12 rounded-full bg-[#FCFAF5] border border-[#D8C4A8] text-xl font-medium text-[#2B1D17] hover:bg-[#A95339] hover:text-white transition-colors flex items-center justify-center shadow-xs"
+                          className="w-12 h-12 rounded-full bg-[#FFFDF8] border border-[#9B7049]/30 text-xl font-bold text-[#3A2418] hover:bg-[#3A2418] hover:text-[#FFFDF8] transition-colors flex items-center justify-center shadow-xs"
                           aria-label="Increase guests"
                         >
                           +
                         </button>
                       </div>
-                      <span className="text-[11px] text-[#2B1D17]/50 block text-center">
+                      <span className="text-[11px] text-[#6B4630] block text-center">
                         Total pilgrims in your party
                       </span>
                     </div>
 
                     {/* Rooms Stepper */}
-                    <div className="bg-[#F7F3EA] border border-[#D8C4A8]/40 rounded-2xl p-5 space-y-3">
+                    <div className="bg-[#F8F3E8] border border-[#9B7049]/30 rounded-2xl p-5 space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono uppercase tracking-wider text-[#A95339] font-bold">
+                        <span className="text-xs font-mono uppercase tracking-wider text-[#C7A15A] font-bold">
                           HOW MANY ROOMS?
                         </span>
-                        <DoorOpen className="w-4 h-4 text-[#A95339]" />
+                        <DoorOpen className="w-4 h-4 text-[#C7A15A]" />
                       </div>
 
                       <div className="flex items-center justify-between pt-1">
                         <button
                           type="button"
                           onClick={() => setRooms(Math.max(1, rooms - 1))}
-                          className="w-12 h-12 rounded-full bg-[#FCFAF5] border border-[#D8C4A8] text-xl font-medium text-[#2B1D17] hover:bg-[#A95339] hover:text-white transition-colors flex items-center justify-center shadow-xs"
+                          className="w-12 h-12 rounded-full bg-[#FFFDF8] border border-[#9B7049]/30 text-xl font-bold text-[#3A2418] hover:bg-[#3A2418] hover:text-[#FFFDF8] transition-colors flex items-center justify-center shadow-xs"
                           aria-label="Decrease rooms"
                         >
                           −
                         </button>
-                        <span className="font-serif text-3xl font-light text-[#2B1D17] w-12 text-center">
+                        <span className="font-serif text-3xl font-bold text-[#3A2418] w-12 text-center">
                           {rooms}
                         </span>
                         <button
                           type="button"
                           onClick={() => setRooms(Math.min(6, rooms + 1))}
-                          className="w-12 h-12 rounded-full bg-[#FCFAF5] border border-[#D8C4A8] text-xl font-medium text-[#2B1D17] hover:bg-[#A95339] hover:text-white transition-colors flex items-center justify-center shadow-xs"
+                          className="w-12 h-12 rounded-full bg-[#FFFDF8] border border-[#9B7049]/30 text-xl font-bold text-[#3A2418] hover:bg-[#3A2418] hover:text-[#FFFDF8] transition-colors flex items-center justify-center shadow-xs"
                           aria-label="Increase rooms"
                         >
                           +
                         </button>
                       </div>
-                      <span className="text-[11px] text-[#2B1D17]/50 block text-center">
+                      <span className="text-[11px] text-[#6B4630] block text-center">
                         Rooms to reserve
                       </span>
                     </div>
@@ -514,10 +514,10 @@ function BookingContent() {
                     <button
                       type="button"
                       onClick={handleProceedFromDates}
-                      className="group w-full flex items-center justify-center gap-3 bg-[#A95339] hover:bg-[#2B1D17] text-[#FFFDF8] font-serif font-bold text-sm uppercase tracking-widest py-4 px-8 rounded-full shadow-lg transition-all duration-300 active:scale-95"
+                      className="group w-full flex items-center justify-center gap-3 bg-[#3A2418] hover:bg-[#241A15] border border-[#C7A15A]/40 text-[#FFFDF8] font-serif font-bold text-sm uppercase tracking-widest py-4 px-8 rounded-full shadow-lg transition-all duration-300 active:scale-95"
                     >
                       <span>FIND AVAILABLE ROOMS</span>
-                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+                      <ArrowRight className="w-4 h-4 text-[#C7A15A] transition-transform duration-300 group-hover:translate-x-1.5" />
                     </button>
                   </div>
                 </motion.div>
@@ -533,15 +533,15 @@ function BookingContent() {
                   transition={{ duration: 0.35, ease: 'easeOut' }}
                   className="space-y-6"
                 >
-                  <div className="bg-[#FCFAF5] border border-[#D8C4A8] rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="bg-[#FFFDF8] border border-[#9B7049]/30 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                      <span className="text-[11px] font-mono uppercase tracking-widest text-[#A95339] font-bold block">
+                      <span className="text-[11px] font-mono uppercase tracking-widest text-[#C7A15A] font-bold block">
                         STEP 02 OF 06
                       </span>
-                      <h2 className="font-serif text-2xl sm:text-3xl font-light text-[#2B1D17]">
+                      <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#3A2418]">
                         Choose Your Room
                       </h2>
-                      <p className="text-xs text-[#2B1D17]/70 font-light mt-0.5">
+                      <p className="text-xs text-[#6B4630] mt-0.5">
                         {nights} {nights === 1 ? 'Night' : 'Nights'} • {guests} Yatrik • {rooms} {rooms === 1 ? 'Room' : 'Rooms'}
                       </p>
                     </div>
@@ -549,9 +549,9 @@ function BookingContent() {
                     <button
                       type="button"
                       onClick={() => setStep(1)}
-                      className="inline-flex items-center gap-1.5 text-xs font-serif font-semibold text-[#A95339] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-xs font-serif font-semibold text-[#3A2418] hover:text-[#C7A15A] hover:underline"
                     >
-                      <RotateCcw className="w-3.5 h-3.5" />
+                      <RotateCcw className="w-3.5 h-3.5 text-[#C7A15A]" />
                       <span>Change Dates / Party</span>
                     </button>
                   </div>
@@ -577,10 +577,10 @@ function BookingContent() {
                       return (
                         <div
                           key={room.id}
-                          className={`bg-[#FCFAF5] rounded-3xl border overflow-hidden transition-all duration-300 shadow-sm ${
+                          className={`bg-[#FFFDF8] rounded-3xl border overflow-hidden transition-all duration-300 shadow-sm ${
                             isSelected
-                              ? 'border-[#A95339] ring-2 ring-[#A95339]/20 shadow-md'
-                              : 'border-[#D8C4A8] hover:border-[#A95339]/50'
+                              ? 'border-[#C7A15A] ring-2 ring-[#C7A15A]/30 shadow-md'
+                              : 'border-[#9B7049]/30 hover:border-[#C7A15A]/60'
                           }`}
                         >
                           <div className="grid grid-cols-1 md:grid-cols-12 items-stretch">
@@ -849,10 +849,10 @@ function BookingContent() {
                                 pincode: e.target.value.replace(/\D/g, ''),
                               })
                             }
-                            className="w-full h-13 px-4 rounded-xl border border-[#D8C4A8] bg-[#FCFAF5] text-sm text-[#2B1D17] font-medium focus:outline-none focus:border-[#A95339] focus:ring-1 focus:ring-[#A95339]"
+                            className="w-full h-13 px-4 rounded-xl border border-[#9B7049]/30 bg-[#FFFDF8] text-sm text-[#3A2418] font-medium focus:outline-none focus:border-[#C7A15A] focus:ring-1 focus:ring-[#C7A15A]"
                           />
                           {guestErrors.pincode && (
-                            <span className="text-[11px] text-red-600 block">{guestErrors.pincode}</span>
+                            <span className="text-[11px] text-rose-600 block">{guestErrors.pincode}</span>
                           )}
                         </div>
                       </div>
@@ -860,7 +860,7 @@ function BookingContent() {
 
                     {/* Optional Notes */}
                     <div className="space-y-2 pt-2">
-                      <label className="block text-xs font-serif font-medium text-[#2B1D17] uppercase tracking-wider">
+                      <label className="block text-xs font-serif font-bold text-[#3A2418] uppercase tracking-wider">
                         Special Requests / Remarks (Optional)
                       </label>
                       <textarea
@@ -870,24 +870,24 @@ function BookingContent() {
                         onChange={(e) =>
                           setGuestDetails({ ...guestDetails, specialRequests: e.target.value })
                         }
-                        className="w-full p-4 rounded-xl border border-[#D8C4A8] bg-[#FCFAF5] text-sm text-[#2B1D17] focus:outline-none focus:border-[#A95339] focus:ring-1 focus:ring-[#A95339]"
+                        className="w-full p-4 rounded-xl border border-[#9B7049]/30 bg-[#FFFDF8] text-sm text-[#3A2418] focus:outline-none focus:border-[#C7A15A] focus:ring-1 focus:ring-[#C7A15A]"
                       />
                     </div>
 
                     {/* Navigation Actions */}
-                    <div className="pt-4 border-t border-[#D8C4A8]/40 flex items-center justify-between gap-4">
+                    <div className="pt-4 border-t border-[#9B7049]/20 flex items-center justify-between gap-4">
                       <button
                         type="button"
                         onClick={() => setStep(2)}
-                        className="inline-flex items-center gap-2 text-xs font-serif font-semibold text-[#2B1D17] hover:text-[#A95339] transition-colors"
+                        className="inline-flex items-center gap-2 text-xs font-serif font-semibold text-[#3A2418] hover:text-[#C7A15A] transition-colors"
                       >
-                        <ArrowLeft className="w-4 h-4" />
+                        <ArrowLeft className="w-4 h-4 text-[#C7A15A]" />
                         <span>Back to Rooms</span>
                       </button>
 
                       <button
                         type="submit"
-                        className="inline-flex items-center gap-2 bg-[#A95339] hover:bg-[#2B1D17] text-[#FFFDF8] font-serif font-bold text-xs uppercase tracking-wider py-4 px-8 rounded-full shadow-md transition-all active:scale-95"
+                        className="inline-flex items-center gap-2 bg-[#3A2418] hover:bg-[#241A15] border border-[#C7A15A]/40 text-[#FFFDF8] font-serif font-bold text-xs uppercase tracking-wider py-4 px-8 rounded-full shadow-md transition-all active:scale-95"
                       >
                         <span>CONTINUE TO REVIEW →</span>
                       </button>
@@ -904,95 +904,95 @@ function BookingContent() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
                   transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="bg-[#FCFAF5] border border-[#D8C4A8] rounded-3xl p-6 sm:p-10 shadow-sm space-y-8"
+                  className="bg-[#FFFDF8] border border-[#9B7049]/30 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8"
                 >
                   <div className="space-y-1">
-                    <span className="text-[11px] font-mono uppercase tracking-widest text-[#A95339] font-bold block">
+                    <span className="text-[11px] font-mono uppercase tracking-widest text-[#C7A15A] font-bold block">
                       STEP 04 OF 06
                     </span>
-                    <h2 className="font-serif text-2xl sm:text-3xl font-light text-[#2B1D17]">
+                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#3A2418]">
                       Review Your Stay
                     </h2>
-                    <p className="text-xs text-[#2B1D17]/70 font-light">
+                    <p className="text-xs text-[#6B4630]">
                       Please verify your reservation details before proceeding to payment.
                     </p>
                   </div>
 
                   {/* Editorial Structured Summary with Dividers */}
-                  <div className="space-y-6 text-xs text-[#2B1D17]/85">
+                  <div className="space-y-6 text-xs text-[#3A2418]">
                     
                     {/* Dates Section */}
-                    <div className="space-y-2 pb-4 border-b border-[#D8C4A8]/40">
-                      <span className="font-mono text-[11px] uppercase tracking-wider text-[#A95339] font-bold block">
+                    <div className="space-y-2 pb-4 border-b border-[#9B7049]/20">
+                      <span className="font-mono text-[11px] uppercase tracking-wider text-[#C7A15A] font-bold block">
                         YOUR DATES
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                         <div>
-                          <strong className="font-serif text-[#2B1D17] block">Check-In:</strong>
+                          <strong className="font-serif text-[#3A2418] block">Check-In:</strong>
                           <span>{checkIn} (10:00 AM)</span>
                         </div>
                         <div>
-                          <strong className="font-serif text-[#2B1D17] block">Check-Out:</strong>
+                          <strong className="font-serif text-[#3A2418] block">Check-Out:</strong>
                           <span>{checkOut} (09:00 AM)</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Room Section */}
-                    <div className="space-y-2 pb-4 border-b border-[#D8C4A8]/40">
-                      <span className="font-mono text-[11px] uppercase tracking-wider text-[#A95339] font-bold block">
+                    <div className="space-y-2 pb-4 border-b border-[#9B7049]/20">
+                      <span className="font-mono text-[11px] uppercase tracking-wider text-[#C7A15A] font-bold block">
                         YOUR ROOM
                       </span>
-                      <div className="text-sm font-serif font-medium text-[#2B1D17]">
+                      <div className="text-sm font-serif font-medium text-[#3A2418]">
                         {selectedRoomType?.name} ({rooms} {rooms === 1 ? 'Room' : 'Rooms'})
                       </div>
-                      <span className="text-xs text-[#2B1D17]/60 block">
+                      <span className="text-xs text-[#6B4630] block">
                         {guests} Yatrik • {selectedRoomType?.bed_type} • Split Air Conditioning
                       </span>
                     </div>
 
                     {/* Details Section */}
-                    <div className="space-y-2 pb-4 border-b border-[#D8C4A8]/40">
-                      <span className="font-mono text-[11px] uppercase tracking-wider text-[#A95339] font-bold block">
+                    <div className="space-y-2 pb-4 border-b border-[#9B7049]/20">
+                      <span className="font-mono text-[11px] uppercase tracking-wider text-[#C7A15A] font-bold block">
                         PRIMARY YATRIK
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
                         <div>
-                          <span className="text-[#2B1D17]/50 block">Name:</span>
-                          <span className="font-medium text-[#2B1D17]">{guestDetails.fullName}</span>
+                          <span className="text-[#6B4630] block">Name:</span>
+                          <span className="font-bold text-[#3A2418]">{guestDetails.fullName}</span>
                         </div>
                         <div>
-                          <span className="text-[#2B1D17]/50 block">Mobile:</span>
-                          <span className="font-medium text-[#2B1D17]">{guestDetails.phone}</span>
+                          <span className="text-[#6B4630] block">Mobile:</span>
+                          <span className="font-bold text-[#3A2418]">{guestDetails.phone}</span>
                         </div>
                         <div>
-                          <span className="text-[#2B1D17]/50 block">Email:</span>
-                          <span className="font-medium text-[#2B1D17] truncate">{guestDetails.email}</span>
+                          <span className="text-[#6B4630] block">Email:</span>
+                          <span className="font-medium text-[#3A2418] truncate">{guestDetails.email}</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Payment Summary */}
-                    <div className="space-y-2 pb-4 border-b border-[#D8C4A8]/40">
-                      <span className="font-mono text-[11px] uppercase tracking-wider text-[#A95339] font-bold block">
+                    <div className="space-y-2 pb-4 border-b border-[#9B7049]/20">
+                      <span className="font-mono text-[11px] uppercase tracking-wider text-[#C7A15A] font-bold block">
                         PAYMENT SUMMARY
                       </span>
-                      <div className="space-y-1.5 text-xs text-[#2B1D17]/75">
+                      <div className="space-y-1.5 text-xs text-[#3A2418]">
                         <div className="flex justify-between">
                           <span>Room Tariff ({nights}N × ₹{selectedRoomType?.base_price || 0} × {rooms}R):</span>
-                          <span className="font-medium text-[#2B1D17]">₹{subtotal.toLocaleString('en-IN')}</span>
+                          <span className="font-medium text-[#3A2418]">₹{subtotal.toLocaleString('en-IN')}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Service / Maintenance Fees:</span>
-                          <span className="font-medium text-[#2B1D17]">₹0</span>
+                          <span className="font-medium text-[#3A2418]">₹0</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Taxes:</span>
-                          <span className="font-medium text-[#2B1D17]">₹0</span>
+                          <span className="font-medium text-[#3A2418]">₹0</span>
                         </div>
-                        <div className="flex justify-between items-baseline pt-2 text-base font-serif font-bold text-[#2B1D17]">
+                        <div className="flex justify-between items-baseline pt-2 text-base font-serif font-bold text-[#3A2418]">
                           <span>Total Amount to Pay:</span>
-                          <span className="text-2xl font-light text-[#A95339]">₹{total.toLocaleString('en-IN')}</span>
+                          <span className="text-2xl font-bold text-[#3A2418]">₹{total.toLocaleString('en-IN')}</span>
                         </div>
                       </div>
                     </div>
@@ -1000,11 +1000,11 @@ function BookingContent() {
                   </div>
 
                   {/* Compact Policies & Acceptance (#17) */}
-                  <div className="bg-[#F7F3EA] border border-[#D8C4A8]/50 rounded-2xl p-5 space-y-3">
-                    <span className="font-mono text-[11px] uppercase tracking-wider text-[#A95339] font-bold block">
+                  <div className="bg-[#F8F3E8] border border-[#9B7049]/30 rounded-2xl p-5 space-y-3">
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-[#C7A15A] font-bold block">
                       BEFORE YOU CONTINUE
                     </span>
-                    <ul className="text-xs text-[#2B1D17]/80 space-y-1.5 list-disc list-inside font-light">
+                    <ul className="text-xs text-[#6B4630] space-y-1.5 list-disc list-inside font-normal">
                       <li>Standard check-in is 10:00 AM and check-out is 09:00 AM.</li>
                       <li>Shri Nirav Khimat Bhavan strictly observes sacred Jain satvik norms.</li>
                       <li>Government photo ID is required for all adult guests upon arrival.</li>
@@ -1016,27 +1016,27 @@ function BookingContent() {
                           type="checkbox"
                           checked={termsAgreed}
                           onChange={(e) => setTermsAgreed(e.target.checked)}
-                          className="w-4 h-4 rounded border-[#D8C4A8] text-[#A95339] focus:ring-[#A95339]"
+                          className="w-4 h-4 rounded border-[#9B7049]/40 text-[#3A2418] focus:ring-[#C7A15A]"
                         />
-                        <span className="text-xs font-serif font-medium text-[#2B1D17]">
+                        <span className="text-xs font-serif font-semibold text-[#3A2418]">
                           I agree to the booking terms and stay guidelines.
                         </span>
                       </label>
                     </div>
 
                     {termsError && (
-                      <span className="text-[11px] text-red-600 block">{termsError}</span>
+                      <span className="text-[11px] text-rose-600 block">{termsError}</span>
                     )}
                   </div>
 
                   {/* Actions */}
-                  <div className="pt-4 border-t border-[#D8C4A8]/40 flex items-center justify-between gap-4">
+                  <div className="pt-4 border-t border-[#9B7049]/20 flex items-center justify-between gap-4">
                     <button
                       type="button"
                       onClick={() => setStep(3)}
-                      className="inline-flex items-center gap-2 text-xs font-serif font-semibold text-[#2B1D17] hover:text-[#A95339] transition-colors"
+                      className="inline-flex items-center gap-2 text-xs font-serif font-semibold text-[#3A2418] hover:text-[#C7A15A] transition-colors"
                     >
-                      <ArrowLeft className="w-4 h-4" />
+                      <ArrowLeft className="w-4 h-4 text-[#C7A15A]" />
                       <span>Edit Details</span>
                     </button>
 
@@ -1044,16 +1044,16 @@ function BookingContent() {
                       type="button"
                       disabled={isProcessingPayment}
                       onClick={handleProceedToPayment}
-                      className="inline-flex items-center gap-2 bg-[#A95339] hover:bg-[#2B1D17] text-[#FFFDF8] font-serif font-bold text-xs uppercase tracking-wider py-4 px-8 rounded-full shadow-md transition-all active:scale-95 disabled:opacity-50"
+                      className="inline-flex items-center gap-2 bg-[#3A2418] hover:bg-[#241A15] border border-[#C7A15A]/40 text-[#FFFDF8] font-serif font-bold text-xs uppercase tracking-wider py-4 px-8 rounded-full shadow-md transition-all active:scale-95 disabled:opacity-50"
                     >
                       {isProcessingPayment ? (
                         <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <Loader2 className="w-4 h-4 animate-spin text-[#C7A15A]" />
                           <span>Holding Room...</span>
                         </>
                       ) : (
                         <>
-                          <Lock className="w-4 h-4" />
+                          <Lock className="w-4 h-4 text-[#C7A15A]" />
                           <span>PROCEED TO PAYMENT →</span>
                         </>
                       )}
@@ -1070,30 +1070,30 @@ function BookingContent() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
                   transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="bg-[#FCFAF5] border border-[#D8C4A8] rounded-3xl p-6 sm:p-10 shadow-sm space-y-8"
+                  className="bg-[#FFFDF8] border border-[#9B7049]/30 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8"
                 >
                   <div className="space-y-1">
-                    <span className="text-[11px] font-mono uppercase tracking-widest text-[#A95339] font-bold block">
+                    <span className="text-[11px] font-mono uppercase tracking-widest text-[#C7A15A] font-bold block">
                       STEP 05 OF 06
                     </span>
-                    <h2 className="font-serif text-2xl sm:text-3xl font-light text-[#2B1D17]">
+                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#3A2418]">
                       Complete Your Booking
                     </h2>
-                    <p className="text-xs text-[#2B1D17]/70 font-light">
+                    <p className="text-xs text-[#6B4630]">
                       Your reservation is ready. Please complete your payment to finalize your room.
                     </p>
                   </div>
 
                   {/* Payment Card */}
-                  <div className="bg-[#F7F3EA] border border-[#D8C4A8]/60 rounded-2xl p-6 sm:p-8 space-y-4">
-                    <div className="flex justify-between items-center pb-3 border-b border-[#D8C4A8]/30">
-                      <span className="font-mono text-xs text-[#2B1D17]/60">BOOKING REFERENCE:</span>
-                      <span className="font-mono font-bold text-sm text-[#2B1D17]">{publicBookingId}</span>
+                  <div className="bg-[#F8F3E8] border border-[#9B7049]/30 rounded-2xl p-6 sm:p-8 space-y-4">
+                    <div className="flex justify-between items-center pb-3 border-b border-[#9B7049]/20">
+                      <span className="font-mono text-xs text-[#6B4630]">BOOKING REFERENCE:</span>
+                      <span className="font-mono font-bold text-sm text-[#3A2418]">{publicBookingId}</span>
                     </div>
 
                     <div className="flex justify-between items-baseline pt-1">
-                      <span className="font-serif text-base font-medium text-[#2B1D17]">TOTAL TO PAY:</span>
-                      <span className="font-serif text-3xl font-light text-[#A95339]">
+                      <span className="font-serif text-base font-bold text-[#3A2418]">TOTAL TO PAY:</span>
+                      <span className="font-serif text-3xl font-bold text-[#3A2418]">
                         ₹{total.toLocaleString('en-IN')}
                       </span>
                     </div>
@@ -1101,12 +1101,12 @@ function BookingContent() {
 
                   {/* Failure State (#21) */}
                   {paymentFailed && (
-                    <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-xs text-red-800 space-y-2">
-                      <div className="flex items-center gap-2 font-serif font-bold text-sm text-red-900">
-                        <XCircle className="w-5 h-5 text-red-600 shrink-0" />
+                    <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-800 space-y-2">
+                      <div className="flex items-center gap-2 font-serif font-bold text-sm text-rose-900">
+                        <XCircle className="w-5 h-5 text-rose-600 shrink-0" />
                         <span>PAYMENT NOT COMPLETED</span>
                       </div>
-                      <p className="font-light">
+                      <p className="font-normal">
                         {errorMessage || 'Your payment was not completed. Your reservation has not been confirmed.'}
                       </p>
                     </div>
@@ -1122,22 +1122,22 @@ function BookingContent() {
                         const mockOrderId = `order_nkv_test_${Date.now()}`;
                         executePaymentConfirmation(mockPaymentId, mockOrderId, 'test_mode_valid_signature');
                       }}
-                      className="w-full flex items-center justify-center gap-3 bg-[#A95339] hover:bg-[#2B1D17] text-[#FFFDF8] font-serif font-bold py-4 px-6 rounded-full shadow-lg transition-all active:scale-95 text-sm uppercase tracking-wider disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-3 bg-[#3A2418] hover:bg-[#241A15] border border-[#C7A15A]/40 text-[#FFFDF8] font-serif font-bold py-4 px-6 rounded-full shadow-lg transition-all active:scale-95 text-sm uppercase tracking-wider disabled:opacity-50"
                     >
                       {isProcessingPayment ? (
                         <>
-                          <Loader2 className="w-5 h-5 animate-spin" />
+                          <Loader2 className="w-5 h-5 animate-spin text-[#C7A15A]" />
                           <span>CONFIRMING RESERVATION...</span>
                         </>
                       ) : (
                         <>
                           <CheckCircle2 className="w-5 h-5 text-[#C7A15A]" />
-                          <span>Confirm & Reserve Room (Bypass Mode)</span>
+                          <span>Confirm &amp; Reserve Room (Bypass Mode)</span>
                         </>
                       )}
                     </button>
 
-                    <p className="text-[11px] text-center text-[#2B1D17]/60 font-light">
+                    <p className="text-[11px] text-center text-[#6B4630] font-normal">
                       ✓ Instant confirmation active. No real payment required.
                     </p>
                   </div>
@@ -1151,15 +1151,15 @@ function BookingContent() {
                   initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.4 }}
-                  className="bg-[#FCFAF5] border border-[#D8C4A8] rounded-3xl p-6 sm:p-10 shadow-sm space-y-8"
+                  className="bg-[#FFFDF8] border border-[#9B7049]/30 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8"
                 >
                   {/* Hero Header */}
-                  <div className="text-center space-y-3 pb-6 border-b border-[#D8C4A8]/40">
+                  <div className="text-center space-y-3 pb-6 border-b border-[#9B7049]/20">
                     <motion.div
                       initial={shouldReduceMotion ? {} : { scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ duration: 0.35, delay: 0.1 }}
-                      className="w-14 h-14 rounded-full bg-[#A95339] text-white flex items-center justify-center mx-auto shadow-md"
+                      className="w-14 h-14 rounded-full bg-emerald-700 text-white flex items-center justify-center mx-auto shadow-md"
                     >
                       <Check className="w-8 h-8 stroke-[2.5]" />
                     </motion.div>
@@ -1168,7 +1168,7 @@ function BookingContent() {
                       initial={shouldReduceMotion ? {} : { y: 10, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.35, delay: 0.2 }}
-                      className="font-serif text-3xl sm:text-4xl font-light text-[#2B1D17]"
+                      className="font-serif text-3xl sm:text-4xl font-bold text-[#3A2418]"
                     >
                       YOUR STAY IS CONFIRMED.
                     </motion.h2>
@@ -1177,7 +1177,7 @@ function BookingContent() {
                       initial={shouldReduceMotion ? {} : { y: 10, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.35, delay: 0.3 }}
-                      className="text-xs sm:text-sm text-[#2B1D17]/75 max-w-md mx-auto font-light"
+                      className="text-xs sm:text-sm text-[#6B4630] max-w-md mx-auto"
                     >
                       Jai Jinendra. Your reservation at Shri Nirav Khimat Bhavan has been confirmed.
                     </motion.p>
@@ -1187,13 +1187,13 @@ function BookingContent() {
                       initial={shouldReduceMotion ? {} : { y: 10, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.35, delay: 0.4 }}
-                      className="inline-flex items-center gap-3 bg-[#F7F3EA] border border-[#D8C4A8] px-5 py-2.5 rounded-full mt-2"
+                      className="inline-flex items-center gap-3 bg-[#F8F3E8] border border-[#9B7049]/30 px-5 py-2.5 rounded-full mt-2"
                     >
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-[#A95339] block text-left">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-[#C7A15A] block text-left font-bold">
                           BOOKING ID
                         </span>
-                        <span className="font-mono text-base font-bold text-[#2B1D17]">
+                        <span className="font-mono text-base font-bold text-[#3A2418]">
                           {confirmedBooking.publicBookingId}
                         </span>
                       </div>
@@ -1201,10 +1201,10 @@ function BookingContent() {
                       <button
                         type="button"
                         onClick={copyBookingIdToClipboard}
-                        className="p-1.5 rounded-full hover:bg-white text-[#2B1D17] transition-colors"
+                        className="p-1.5 rounded-full hover:bg-white text-[#3A2418] transition-colors"
                         title="Copy Booking ID"
                       >
-                        <Copy className="w-4 h-4 text-[#A95339]" />
+                        <Copy className="w-4 h-4 text-[#C7A15A]" />
                       </button>
                     </motion.div>
 
@@ -1221,62 +1221,62 @@ function BookingContent() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.4, delay: 0.5 }}
                     id="booking-voucher"
-                    className="p-6 sm:p-8 bg-[#F7F3EA] border border-[#D8C4A8] rounded-2xl space-y-5 text-xs text-[#2B1D17]/85"
+                    className="p-6 sm:p-8 bg-[#F8F3E8] border border-[#9B7049]/30 rounded-2xl space-y-5 text-xs text-[#3A2418]"
                   >
-                    <div className="flex justify-between items-center pb-3 border-b border-[#D8C4A8]/40">
+                    <div className="flex justify-between items-center pb-3 border-b border-[#9B7049]/20">
                       <div>
-                        <span className="font-serif font-bold text-sm text-[#2B1D17] block">
+                        <span className="font-serif font-bold text-sm text-[#3A2418] block">
                           SHRI NIRAV KHIMAT BHAVAN
                         </span>
-                        <span className="text-[10px] text-[#2B1D17]/60">
+                        <span className="text-[10px] text-[#6B4630]">
                           Palitana · Gujarat • Official Booking Voucher
                         </span>
                       </div>
-                      <span className="bg-emerald-100 text-emerald-800 font-serif font-semibold text-[11px] px-3 py-1 rounded-full border border-emerald-300">
+                      <span className="bg-emerald-100 text-emerald-800 font-serif font-bold text-[11px] px-3 py-1 rounded-full border border-emerald-300">
                         CONFIRMED
                       </span>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
                       <div>
-                        <span className="text-[#2B1D17]/50 block uppercase text-[10px]">PRIMARY YATRI</span>
-                        <span className="font-serif font-medium text-sm text-[#2B1D17]">
+                        <span className="text-[#6B4630] block uppercase text-[10px] font-bold">PRIMARY YATRI</span>
+                        <span className="font-serif font-bold text-sm text-[#3A2418]">
                           {confirmedBooking.customerName || guestDetails.fullName}
                         </span>
                       </div>
 
                       <div>
-                        <span className="text-[#2B1D17]/50 block uppercase text-[10px]">MOBILE</span>
-                        <span className="font-mono text-sm text-[#2B1D17]">{guestDetails.phone}</span>
+                        <span className="text-[#6B4630] block uppercase text-[10px] font-bold">MOBILE</span>
+                        <span className="font-mono text-sm text-[#3A2418] font-bold">{guestDetails.phone}</span>
                       </div>
 
                       <div>
-                        <span className="text-[#2B1D17]/50 block uppercase text-[10px]">YATRIK</span>
-                        <span className="font-serif text-sm text-[#2B1D17]">{guests} Guests</span>
+                        <span className="text-[#6B4630] block uppercase text-[10px] font-bold">YATRIK</span>
+                        <span className="font-serif text-sm text-[#3A2418] font-bold">{guests} Guests</span>
                       </div>
 
                       <div>
-                        <span className="text-[#2B1D17]/50 block uppercase text-[10px]">CHECK-IN</span>
-                        <span className="font-medium text-[#2B1D17]">{confirmedBooking.checkIn} (10:00 AM)</span>
+                        <span className="text-[#6B4630] block uppercase text-[10px] font-bold">CHECK-IN</span>
+                        <span className="font-medium text-[#3A2418]">{confirmedBooking.checkIn} (10:00 AM)</span>
                       </div>
 
                       <div>
-                        <span className="text-[#2B1D17]/50 block uppercase text-[10px]">CHECK-OUT</span>
-                        <span className="font-medium text-[#2B1D17]">{confirmedBooking.checkOut} (09:00 AM)</span>
+                        <span className="text-[#6B4630] block uppercase text-[10px] font-bold">CHECK-OUT</span>
+                        <span className="font-medium text-[#3A2418]">{confirmedBooking.checkOut} (09:00 AM)</span>
                       </div>
 
                       <div>
-                        <span className="text-[#2B1D17]/50 block uppercase text-[10px]">ROOM</span>
-                        <span className="font-medium text-[#2B1D17]">
+                        <span className="text-[#6B4630] block uppercase text-[10px] font-bold">ROOM</span>
+                        <span className="font-medium text-[#3A2418]">
                           {selectedRoomType?.name} ({rooms}R)
                         </span>
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-[#D8C4A8]/40 flex justify-between items-baseline">
-                      <span className="font-serif font-bold text-[#2B1D17]">TOTAL PAID:</span>
-                      <span className="font-serif text-2xl font-light text-[#A95339]">
-                        ₹{confirmedBooking.totalPaid || total}
+                    <div className="pt-3 border-t border-[#9B7049]/20 flex justify-between items-baseline">
+                      <span className="font-serif font-bold text-[#3A2418]">TOTAL PAID:</span>
+                      <span className="font-serif text-2xl font-bold text-[#3A2418]">
+                        ₹{Number(confirmedBooking.totalPaid || total).toLocaleString('en-IN')}
                       </span>
                     </div>
                   </motion.div>
@@ -1291,9 +1291,9 @@ function BookingContent() {
                     <button
                       type="button"
                       onClick={() => window.print()}
-                      className="inline-flex items-center gap-2 bg-[#FCFAF5] hover:bg-[#F7F3EA] border border-[#D8C4A8] text-[#2B1D17] px-6 py-3.5 rounded-full text-xs font-serif font-semibold transition-all shadow-sm"
+                      className="inline-flex items-center gap-2 bg-[#FFFDF8] hover:bg-[#F8F3E8] border border-[#9B7049]/30 text-[#3A2418] px-6 py-3.5 rounded-full text-xs font-serif font-bold transition-all shadow-sm"
                     >
-                      <Printer className="w-4 h-4 text-[#A95339]" />
+                      <Printer className="w-4 h-4 text-[#C7A15A]" />
                       <span>PRINT / DOWNLOAD RECEIPT</span>
                     </button>
 
@@ -1303,16 +1303,16 @@ function BookingContent() {
                         const message = `Jai Jinendra! My booking at Shri Nirav Khimat Bhavan is confirmed. Booking ID: ${confirmedBooking.publicBookingId}, Dates: ${confirmedBooking.checkIn} to ${confirmedBooking.checkOut}.`;
                         window.open(`https://wa.me/919376656100?text=${encodeURIComponent(message)}`, '_blank');
                       }}
-                      className="inline-flex items-center gap-2 bg-[#A95339] hover:bg-[#2B1D17] text-[#FFFDF8] px-6 py-3.5 rounded-full text-xs font-serif font-bold tracking-wider transition-all shadow-md"
+                      className="inline-flex items-center gap-2 bg-[#3A2418] hover:bg-[#241A15] border border-[#C7A15A]/40 text-[#FFFDF8] px-6 py-3.5 rounded-full text-xs font-serif font-bold tracking-wider transition-all shadow-md"
                     >
-                      <Phone className="w-4 h-4" />
+                      <Phone className="w-4 h-4 text-[#C7A15A]" />
                       <span>WHATSAPP CONFIRMATION</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => router.push('/my-booking')}
-                      className="inline-flex items-center gap-2 bg-[#2B1D17] hover:bg-[#A95339] text-[#FFFDF8] px-6 py-3.5 rounded-full text-xs font-serif font-semibold transition-all shadow-sm"
+                      className="inline-flex items-center gap-2 bg-[#F8F3E8] hover:bg-[#FFFDF8] border border-[#9B7049]/30 text-[#3A2418] px-6 py-3.5 rounded-full text-xs font-serif font-bold transition-all shadow-sm"
                     >
                       <span>VIEW MY BOOKING</span>
                     </button>

@@ -31,7 +31,7 @@ export function BookingStepper({ currentStep, onStepClick }: BookingStepperProps
   return (
     <div className="w-full mb-8">
       {/* Desktop Compact Horizontal Indicator (~60-75px height) */}
-      <div className="hidden md:flex items-center justify-between bg-[#FCFAF5] border border-[#D8C4A8]/60 rounded-2xl px-6 py-4 shadow-sm">
+      <div className="hidden md:flex items-center justify-between bg-[#FFFDF8] border border-[#9B7049]/30 rounded-2xl px-6 py-4 shadow-sm">
         {BOOKING_STEPS.map((step, idx) => {
           const isCompleted = step.id < currentStep;
           const isCurrent = step.id === currentStep;
@@ -58,10 +58,10 @@ export function BookingStepper({ currentStep, onStepClick }: BookingStepperProps
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-serif font-medium transition-all duration-300 ${
                     isCompleted
-                      ? 'bg-[#A95339] text-[#FFFDF8] shadow-sm'
+                      ? 'bg-[#3A2418] text-[#C7A15A] shadow-sm'
                       : isCurrent
-                      ? 'bg-[#A95339] text-[#FFFDF8] ring-4 ring-[#A95339]/15 shadow-sm'
-                      : 'bg-transparent text-[#2B1D17]/40 border border-[#D8C4A8]'
+                      ? 'bg-[#3A2418] text-[#FFFDF8] ring-4 ring-[#C7A15A]/30 border border-[#C7A15A] shadow-sm font-bold'
+                      : 'bg-transparent text-[#3A2418]/40 border border-[#9B7049]/30'
                   }`}
                 >
                   {isCompleted ? (
@@ -76,10 +76,10 @@ export function BookingStepper({ currentStep, onStepClick }: BookingStepperProps
                   <span
                     className={`font-sans text-xs tracking-wide transition-colors duration-200 ${
                       isCurrent
-                        ? 'font-bold text-[#A95339]'
+                        ? 'font-bold text-[#3A2418]'
                         : isCompleted
-                        ? 'font-medium text-[#2B1D17]'
-                        : 'font-normal text-[#2B1D17]/40'
+                        ? 'font-semibold text-[#3A2418]/80'
+                        : 'font-normal text-[#3A2418]/40'
                     }`}
                   >
                     {step.shortName}
@@ -89,7 +89,11 @@ export function BookingStepper({ currentStep, onStepClick }: BookingStepperProps
 
               {/* Connecting Divider Arrow */}
               {idx < BOOKING_STEPS.length - 1 && (
-                <div className="flex-1 max-w-[40px] h-[1px] mx-2 bg-[#D8C4A8]/50" />
+                <div
+                  className={`flex-1 max-w-[40px] h-[1px] mx-2 ${
+                    isCompleted ? 'bg-[#C7A15A]' : 'bg-[#9B7049]/20'
+                  }`}
+                />
               )}
             </React.Fragment>
           );
@@ -97,20 +101,20 @@ export function BookingStepper({ currentStep, onStepClick }: BookingStepperProps
       </div>
 
       {/* Mobile Dedicated Stepper */}
-      <div className="flex md:hidden flex-col gap-2 bg-[#FCFAF5] border border-[#D8C4A8]/60 rounded-xl p-3.5 shadow-sm">
+      <div className="flex md:hidden flex-col gap-2 bg-[#FFFDF8] border border-[#9B7049]/30 rounded-xl p-3.5 shadow-sm">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-mono uppercase tracking-widest text-[#A95339] font-bold">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-[#C7A15A] font-bold">
             STEP {currentStep} OF {BOOKING_STEPS.length}
           </span>
-          <span className="font-serif text-sm font-medium text-[#2B1D17]">
+          <span className="font-serif text-sm font-medium text-[#3A2418]">
             {currentStepObj.name}
           </span>
         </div>
 
         {/* Minimal Progress Bar */}
-        <div className="w-full h-1 bg-[#D8C4A8]/40 rounded-full overflow-hidden">
+        <div className="w-full h-1 bg-[#9B7049]/20 rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-[#A95339] rounded-full"
+            className="h-full bg-[#3A2418] rounded-full"
             initial={shouldReduceMotion ? {} : { width: 0 }}
             animate={{ width: `${(currentStep / BOOKING_STEPS.length) * 100}%` }}
             transition={{ duration: 0.35, ease: 'easeOut' }}

@@ -7,7 +7,14 @@ import { sendNotification } from '@/lib/notifications';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const validated = verifyPaymentSchema.safeParse(body);
+    const normalizedBody = {
+      bookingId: body.bookingId || body.booking_id,
+      razorpayOrderId: body.razorpayOrderId || body.razorpay_order_id,
+      razorpayPaymentId: body.razorpayPaymentId || body.razorpay_payment_id,
+      razorpaySignature: body.razorpaySignature || body.razorpay_signature,
+    };
+
+    const validated = verifyPaymentSchema.safeParse(normalizedBody);
 
     if (!validated.success) {
       return NextResponse.json(
