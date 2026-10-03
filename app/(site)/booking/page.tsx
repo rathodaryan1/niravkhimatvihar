@@ -1112,33 +1112,33 @@ function BookingContent() {
                     </div>
                   )}
 
-                  {/* Payment Trigger Button */}
+                  {/* Instant Confirmation / Bypass Button */}
                   <div className="space-y-4 pt-2">
                     <button
                       type="button"
                       disabled={isProcessingPayment}
                       onClick={() => {
-                        const mockPaymentId = `pay_rzp_${Date.now()}`;
-                        const mockOrderId = `order_nkv_${Date.now()}`;
-                        executePaymentConfirmation(mockPaymentId, mockOrderId, 'valid_signature');
+                        const mockPaymentId = `pay_nkv_bypass_${Date.now()}`;
+                        const mockOrderId = `order_nkv_test_${Date.now()}`;
+                        executePaymentConfirmation(mockPaymentId, mockOrderId, 'test_mode_valid_signature');
                       }}
                       className="w-full flex items-center justify-center gap-3 bg-[#A95339] hover:bg-[#2B1D17] text-[#FFFDF8] font-serif font-bold py-4 px-6 rounded-full shadow-lg transition-all active:scale-95 text-sm uppercase tracking-wider disabled:opacity-50"
                     >
                       {isProcessingPayment ? (
                         <>
                           <Loader2 className="w-5 h-5 animate-spin" />
-                          <span>PROCESSING PAYMENT...</span>
+                          <span>CONFIRMING RESERVATION...</span>
                         </>
                       ) : (
                         <>
-                          <CreditCard className="w-5 h-5" />
-                          <span>Pay ₹{total.toLocaleString('en-IN')} & Confirm</span>
+                          <CheckCircle2 className="w-5 h-5 text-[#C7A15A]" />
+                          <span>Confirm & Reserve Room (Bypass Mode)</span>
                         </>
                       )}
                     </button>
 
-                    <p className="text-[11px] text-center text-[#2B1D17]/50 font-light">
-                      Secure payment powered by Razorpay.
+                    <p className="text-[11px] text-center text-[#2B1D17]/60 font-light">
+                      ✓ Instant confirmation active. No real payment required.
                     </p>
                   </div>
                 </motion.div>
