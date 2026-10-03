@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { RoomType } from '@/lib/types';
 import { Users, Bed, Snowflake, Bath, Flame, ArrowRight, Sparkles, X, Check, ShieldCheck, DoorOpen } from 'lucide-react';
@@ -15,6 +16,19 @@ export function RoomsShowcase({ rooms, roomTypes }: RoomsShowcaseProps) {
   const displayRooms = rooms || roomTypes || [];
   const [selectedRoom, setSelectedRoom] = useState<RoomType | null>(null);
   const shouldReduceMotion = useReducedMotion();
+
+  const getDemoImage = (room: RoomType, idx: number) => {
+    if (room.images?.[0]?.storage_path) return room.images[0].storage_path;
+    if (room.slug?.includes('standard')) return '/images/rooms/room-standard-1.jpg';
+    if (room.slug?.includes('executive')) return '/images/rooms/room-executive-1.jpg';
+    if (room.slug?.includes('family')) return '/images/rooms/room-family-1.jpg';
+    if (room.slug?.includes('suite')) return '/images/rooms/room-suite-1.jpg';
+    return idx === 0
+      ? '/images/rooms/room-standard-1.jpg'
+      : idx === 1
+      ? '/images/rooms/room-executive-1.jpg'
+      : '/images/rooms/room-family-1.jpg';
+  };
 
   return (
     <section id="rooms" className="py-24 sm:py-36 bg-[#FFFDF8] text-[#241A15] border-t border-[#9B7049]/20">
@@ -40,98 +54,98 @@ export function RoomsShowcase({ rooms, roomTypes }: RoomsShowcaseProps) {
 
         {/* Editorial Rooms Showcase Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {displayRooms.slice(0, 3).map((room, idx) => (
-            <motion.div
-              key={room.id}
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.8, delay: idx * 0.15 }}
-              className="group bg-[#F8F3E8] rounded-3xl border border-[#9B7049]/25 overflow-hidden shadow-sm hover:shadow-xl hover:border-[#C7A15A] transition-all flex flex-col justify-between"
-            >
-              {/* Image Frame */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#241A15]">
-                <img
-                  src={
-                    idx === 0
-                      ? 'https://oswalyatrikgruh.org/images/rooms/room-1.jpg'
-                      : idx === 1
-                      ? 'https://oswalyatrikgruh.org/images/suite-room/suite-room-2.jpeg'
-                      : 'https://oswalyatrikgruh.org/images/rooms/room-4.jpg'
-                  }
-                  alt={room.name}
-                  className="absolute inset-0 block h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                
-                {/* Gradient for Card Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#241A15]/80 via-transparent to-transparent" />
+          {displayRooms.slice(0, 3).map((room, idx) => {
+            const roomImage = getDemoImage(room, idx);
 
-                {/* Index Pill */}
-                <div className="absolute top-4 left-4 z-20 bg-[#241A15]/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#C7A15A]/40 text-[#C7A15A] font-serif font-bold text-xs">
-                  0{idx + 1}
-                </div>
+            return (
+              <motion.div
+                key={room.id}
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.8, delay: idx * 0.15 }}
+                className="group bg-[#F8F3E8] rounded-3xl border border-[#9B7049]/25 overflow-hidden shadow-sm hover:shadow-xl hover:border-[#C7A15A] transition-all flex flex-col justify-between"
+              >
+                {/* Image Frame */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#241A15]">
+                  <Image
+                    src={roomImage}
+                    alt={room.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-95"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  
+                  {/* Gradient for Card Legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#241A15]/80 via-transparent to-transparent" />
 
-                {/* Capacity Pill */}
-                <div className="absolute top-4 right-4 z-20 bg-[#241A15]/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#C7A15A]/40 text-[#F8F3E8] text-[10px] uppercase font-bold tracking-wider flex items-center gap-1.5">
-                  <Users className="w-3 h-3 text-[#C7A15A]" />
-                  <span>Up to {room.capacity} Guests</span>
-                </div>
-              </div>
+                  {/* Index Pill */}
+                  <div className="absolute top-4 left-4 z-20 bg-[#241A15]/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#C7A15A]/40 text-[#C7A15A] font-serif font-bold text-xs">
+                    0{idx + 1}
+                  </div>
 
-              {/* Room Content */}
-              <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-6">
-                <div className="space-y-3">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-[#9B7049] font-bold block">
-                    {room.bed_type}
-                  </span>
-                  <h3 className="font-serif text-2xl font-medium text-[#241A15] leading-snug">
-                    {room.name}
-                  </h3>
-                  <p className="text-xs text-[#3A2418]/75 leading-relaxed font-light line-clamp-2">
-                    {room.short_description || room.description}
-                  </p>
-
-                  {/* Amenities Highlights */}
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#3A2418] bg-white px-2.5 py-1 rounded-md border border-[#9B7049]/20">
-                      <Snowflake className="w-3 h-3 text-[#9B7049]" />
-                      Air Conditioning
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#3A2418] bg-white px-2.5 py-1 rounded-md border border-[#9B7049]/20">
-                      <Bath className="w-3 h-3 text-[#9B7049]" />
-                      Western Toilet
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#3A2418] bg-white px-2.5 py-1 rounded-md border border-[#9B7049]/20">
-                      <Flame className="w-3 h-3 text-[#9B7049]" />
-                      Hot Water
-                    </span>
+                  {/* Capacity Pill */}
+                  <div className="absolute top-4 right-4 z-20 bg-[#241A15]/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#C7A15A]/40 text-[#F8F3E8] text-[10px] uppercase font-bold tracking-wider flex items-center gap-1.5">
+                    <Users className="w-3 h-3 text-[#C7A15A]" />
+                    <span>Up to {room.capacity} Guests</span>
                   </div>
                 </div>
 
-                {/* Tariff & View Room CTA */}
-                <div className="pt-4 border-t border-[#9B7049]/20 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] uppercase tracking-widest text-[#9B7049] block">Direct Trust Rate</span>
-                    <div className="flex items-baseline gap-1">
-                      <span className="font-serif text-2xl font-bold text-[#241A15]">
-                        ₹{room.base_price.toLocaleString('en-IN')}
+                {/* Room Content */}
+                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-6">
+                  <div className="space-y-3">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-[#9B7049] font-bold block">
+                      {room.bed_type}
+                    </span>
+                    <h3 className="font-serif text-2xl font-medium text-[#241A15] leading-snug">
+                      {room.name}
+                    </h3>
+                    <p className="text-xs text-[#3A2418]/75 leading-relaxed font-light line-clamp-2">
+                      {room.short_description || room.description}
+                    </p>
+
+                    {/* Amenities Highlights */}
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#3A2418] bg-white px-2.5 py-1 rounded-md border border-[#9B7049]/20">
+                        <Snowflake className="w-3 h-3 text-[#9B7049]" />
+                        Air Conditioning
                       </span>
-                      <span className="text-[10px] text-[#3A2418]/70">/ night</span>
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#3A2418] bg-white px-2.5 py-1 rounded-md border border-[#9B7049]/20">
+                        <Bath className="w-3 h-3 text-[#9B7049]" />
+                        Western Toilet
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#3A2418] bg-white px-2.5 py-1 rounded-md border border-[#9B7049]/20">
+                        <Flame className="w-3 h-3 text-[#9B7049]" />
+                        Hot Water
+                      </span>
                     </div>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => setSelectedRoom(room)}
-                    className="inline-flex items-center gap-1.5 bg-[#3A2418] hover:bg-[#241A15] text-[#F8F3E8] px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-sm"
-                  >
-                    <span>View Room</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#C7A15A]" />
-                  </button>
+                  {/* Tariff & View Room CTA */}
+                  <div className="pt-4 border-t border-[#9B7049]/20 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-[#9B7049] block font-medium">Direct Trust Rate</span>
+                      <div className="flex items-baseline gap-1">
+                        <span className="font-serif text-2xl font-bold text-[#241A15]">
+                          ₹{room.base_price.toLocaleString('en-IN')}
+                        </span>
+                        <span className="text-[10px] text-[#3A2418]/70">/ night</span>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setSelectedRoom(room)}
+                      className="inline-flex items-center gap-1.5 bg-[#3A2418] hover:bg-[#241A15] text-[#F8F3E8] px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-sm"
+                    >
+                      <span>View Room</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#C7A15A]" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>
@@ -214,13 +228,13 @@ export function RoomsShowcase({ rooms, roomTypes }: RoomsShowcaseProps) {
                   Pilgrimage Stay Guidelines
                 </span>
                 <p>• Strictly Jain Yatrik accommodation adhering to satvik sanctity.</p>
-                <p>• Check-in is at 10:00 AM and check-out is at 10:00 AM.</p>
+                <p>• Check-in is at 10:00 AM and check-out is at 09:00 AM.</p>
               </div>
 
               {/* Modal Bottom CTA */}
               <div className="pt-2 flex items-center justify-between border-t border-[#9B7049]/20">
                 <div>
-                  <span className="text-[10px] uppercase tracking-widest text-[#9B7049] block">Dharamshala Tariff</span>
+                  <span className="text-[10px] uppercase tracking-widest text-[#9B7049] block font-medium">Dharamshala Tariff</span>
                   <span className="font-serif text-3xl font-bold text-[#241A15]">
                     ₹{selectedRoom.base_price.toLocaleString('en-IN')}{' '}
                     <span className="text-xs font-normal text-[#3A2418]/70">/ night</span>
