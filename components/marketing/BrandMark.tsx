@@ -39,8 +39,8 @@ export function BrandMark({
           {/* Subtle Geometric Corner Accents */}
           <div className="absolute inset-1 rounded-full border border-[#C7A15A]/20 pointer-events-none" />
           
-          {/* Monogram Serif Text */}
-          <span className="font-serif font-bold text-sm sm:text-base text-[#C7A15A] tracking-wider relative z-10">
+          {/* Monogram Text */}
+          <span className="font-sans font-bold text-sm sm:text-base text-[#C7A15A] tracking-wider relative z-10">
             NK
           </span>
         </div>
@@ -52,12 +52,12 @@ export function BrandMark({
           {variant === 'full' && (
             <>
               <span
-                className={`font-serif font-semibold text-sm sm:text-base tracking-[0.08em] leading-tight ${textColor}`}
+                className={`font-sans font-bold text-sm sm:text-base tracking-wide leading-tight ${textColor}`}
               >
                 SHRI NIRAV KHIMAT BHAVAN
               </span>
               <span
-                className={`font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.25em] font-medium mt-0.5 ${subtextColor}`}
+                className={`font-sans text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold mt-0.5 ${subtextColor}`}
               >
                 PALITANA · GUJARAT
               </span>
@@ -67,12 +67,12 @@ export function BrandMark({
           {variant === 'compact' && (
             <>
               <span
-                className={`font-serif font-semibold text-sm sm:text-base tracking-[0.08em] leading-tight ${textColor}`}
+                className={`font-sans font-bold text-sm sm:text-base tracking-wide leading-tight ${textColor}`}
               >
                 NIRAV KHIMAT BHAVAN
               </span>
               <span
-                className={`font-mono text-[9px] uppercase tracking-[0.22em] font-medium mt-0.5 ${subtextColor}`}
+                className={`font-sans text-[9px] uppercase tracking-wider font-semibold mt-0.5 ${subtextColor}`}
               >
                 PALITANA
               </span>
@@ -82,12 +82,12 @@ export function BrandMark({
           {variant === 'mobile' && (
             <>
               <span
-                className={`font-serif font-semibold text-sm tracking-[0.06em] leading-tight ${textColor}`}
+                className={`font-sans font-bold text-sm tracking-wide leading-tight ${textColor}`}
               >
                 NIRAV KHIMAT
               </span>
               <span
-                className={`font-mono text-[8px] uppercase tracking-[0.2em] font-medium ${subtextColor}`}
+                className={`font-sans text-[8px] uppercase tracking-wider font-semibold ${subtextColor}`}
               >
                 PALITANA
               </span>

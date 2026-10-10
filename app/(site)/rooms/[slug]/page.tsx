@@ -98,6 +98,7 @@ export default async function RoomDetailPage({
               <div className="absolute top-4 left-4 bg-[#241A15]/90 backdrop-blur-md border border-[#C7A15A]/40 text-[#FFFDF8] text-xs px-4 py-1.5 rounded-full font-serif flex items-center gap-2">
                 <Users className="w-4 h-4 text-[#C7A15A]" />
                 <span>Accommodates up to {room.capacity} Yatris</span>
+                <span className="text-[10px] text-[#C7A15A] font-mono">• Real Photo</span>
               </div>
 
               <div className="absolute bottom-4 left-6 right-6 flex items-center justify-between text-[#FFFDF8] text-xs">
@@ -109,6 +110,42 @@ export default async function RoomDetailPage({
                 </span>
               </div>
             </div>
+
+            {/* Room Photo Gallery */}
+            {room.images && room.images.length > 1 && (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#9B7049] font-serif font-bold">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C7A15A]" />
+                    <span>Real Photos & Areas · વાસ્તવિક તસવીરો</span>
+                  </div>
+                  <span className="text-xs text-[#C7A15A] font-serif font-semibold">
+                    {room.images.length} Verified Photos
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {room.images.map((img, i) => (
+                    <div
+                      key={img.id || i}
+                      className="group relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#9B7049]/30 bg-[#241A15] shadow-sm hover:shadow-lg transition-all"
+                    >
+                      <Image
+                        src={img.storage_path}
+                        alt={img.alt_text}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-85 group-hover:opacity-95 transition-opacity" />
+                      <div className="absolute bottom-2.5 left-2.5 right-2.5 text-[11px] text-[#FFFDF8] font-serif font-light leading-tight">
+                        {img.alt_text}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Editorial Description */}
             <div className="bg-[#F8F3E8] border border-[#9B7049]/20 rounded-3xl p-8 sm:p-10 space-y-4">

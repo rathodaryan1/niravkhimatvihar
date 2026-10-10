@@ -9,16 +9,16 @@ export function CinematicCTA() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative py-32 sm:py-44 bg-[#241A15] text-[#FFFDF8] overflow-hidden">
-      {/* Background with Dark Overlays */}
+    <section className="relative py-32 sm:py-44 bg-[#1E140F] text-[#FFFDF8] overflow-hidden">
+      {/* Background with Real Building Photography and Dark Overlays */}
       <div className="absolute inset-0 z-0">
         <div
-          className="w-full h-full bg-cover bg-center opacity-25 mix-blend-luminosity scale-105"
+          className="w-full h-full bg-cover bg-center opacity-30 mix-blend-luminosity scale-105"
           style={{
-            backgroundImage: "url('https://oswalyatrikgruh.org/images/temples/temple-1.jpg')",
+            backgroundImage: "url('/images/gallery/IMG_1425.JPG')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#241A15] via-[#241A15]/75 to-[#241A15]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1E140F] via-[#1E140F]/80 to-[#1E140F]" />
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
@@ -29,10 +29,10 @@ export function CinematicCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-[#C7A15A]/30 bg-[#3A2418]/70 backdrop-blur-md"
+          className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-[#C7A15A]/30 bg-[#1E140F]/80 backdrop-blur-md"
         >
           <Sparkles className="w-3.5 h-3.5 text-[#C7A15A]" />
-          <span className="text-xs uppercase tracking-[0.25em] text-[#C7A15A] font-serif font-semibold">
+          <span className="text-xs uppercase tracking-[0.25em] text-[#C7A15A] font-sans font-bold">
             Shri Nirav Khimat Bhavan · Palitana Yatra
           </span>
         </motion.div>
@@ -43,10 +43,10 @@ export function CinematicCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.1 }}
-          className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-[#FFFDF8] tracking-tight leading-[1.02]"
+          className="font-sans text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#FFFDF8] tracking-tight leading-[1.02]"
         >
           YOUR JOURNEY <br />
-          <span className="italic font-normal text-[#C7A15A]">begins here.</span>
+          <span className="font-semibold text-[#E5C378]">begins here.</span>
         </motion.h2>
 
         {/* Supporting Copy */}

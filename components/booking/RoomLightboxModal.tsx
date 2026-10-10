@@ -41,13 +41,13 @@ export function RoomLightboxModal({
 
   const roomImage =
     roomType.images?.[0]?.storage_path ||
-    (roomType.slug?.includes('standard')
-      ? '/images/rooms/room-standard-1.jpg'
+    (roomType.slug?.includes('suite')
+      ? '/images/rooms/room1.png'
       : roomType.slug?.includes('executive')
-      ? '/images/rooms/room-executive-1.jpg'
+      ? '/images/rooms/room2.png'
       : roomType.slug?.includes('family')
-      ? '/images/rooms/room-family-1.jpg'
-      : '/images/rooms/room-suite-1.jpg');
+      ? '/images/rooms/room2.png'
+      : '/images/rooms/room2.png');
 
   return (
     <AnimatePresence>

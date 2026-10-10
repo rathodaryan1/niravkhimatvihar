@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter, Hind_Vadodara, Cormorant_Garamond } from 'next/font/google';
+import { Inter, Hind_Vadodara } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/lib/context/LanguageContext';
 
 const inter = Inter({
   subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-inter',
   display: 'swap',
 });
@@ -13,13 +14,6 @@ const hindVadodara = Hind_Vadodara({
   subsets: ['gujarati', 'latin'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-hind-vadodara',
-  display: 'swap',
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-cormorant',
   display: 'swap',
 });
 
@@ -56,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${hindVadodara.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${inter.variable} ${hindVadodara.variable} font-sans h-full antialiased`}
       suppressHydrationWarning
     >
       <body

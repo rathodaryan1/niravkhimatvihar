@@ -9,16 +9,16 @@ export function PalitanaExperienceSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative py-28 sm:py-36 bg-[#241A15] text-[#F8F3E8] overflow-hidden">
+    <section className="relative py-28 sm:py-36 bg-[#1E140F] text-[#F8F3E8] overflow-hidden">
       {/* Background Full-Width Visual with Subtle Parallax & Overlay */}
       <div className="absolute inset-0 z-0">
         <div
           className="w-full h-full bg-cover bg-center opacity-30 mix-blend-luminosity scale-105"
           style={{
-            backgroundImage: "url('https://oswalyatrikgruh.org/images/temples/temple-1.jpg')",
+            backgroundImage: "url('/images/gallery/IMG_1430.JPG')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#241A15] via-[#241A15]/80 to-[#241A15]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1E140F] via-[#1E140F]/85 to-[#1E140F]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
@@ -30,7 +30,7 @@ export function PalitanaExperienceSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#C7A15A] font-semibold font-serif"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#C7A15A] font-bold font-sans"
           >
             <Mountain className="w-4 h-4 text-[#C7A15A]" />
             <span>Sacred Shatrunjaya Foothills · પાલીતાણા યાત્રા</span>
@@ -41,10 +41,10 @@ export function PalitanaExperienceSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-[#FFFDF8] tracking-tight leading-[1.02]"
+            className="font-sans text-4xl sm:text-6xl lg:text-7xl font-black text-[#FFFDF8] tracking-tight leading-[1.02]"
           >
             PALITANA — <br />
-            <span className="italic font-normal text-[#C7A15A]">where the journey begins.</span>
+            <span className="font-semibold text-[#E5C378]">where the journey begins.</span>
           </motion.h2>
         </div>
 

@@ -129,12 +129,17 @@ VALUES
 ('c0000000-0000-0000-0000-000000000402', 'b0000000-0000-0000-0000-000000000004', 'D-402', 4, 'AVAILABLE', true)
 ON CONFLICT (room_number) DO NOTHING;
 
--- 5. Insert Gallery Placeholders
+-- 5. Insert Gallery Placeholders & Real Assets
 INSERT INTO gallery_items (title, category, image_url, alt_text, is_active, sort_order)
 VALUES
-('Dharamshala Exterior Architecture', 'property', '/images/gallery/exterior-1.jpg', 'Peaceful exterior facade of Nirav Khimat Vihar Dharamshala in Palitana', true, 1),
-('Serene Guest Accommodation', 'rooms', '/images/gallery/room-1.jpg', 'Clean, well-lit air-conditioned pilgrim room with comfortable beds', true, 2),
-('Bhojanshala Satvik Dining', 'dining', '/images/gallery/dining-1.jpg', 'Pure Jain Bhojanshala dining facility serving traditional satvik meals', true, 3),
-('Reception & Welcome Lounge', 'property', '/images/gallery/reception-1.jpg', 'Warm and welcoming reception desk and waiting lounge for yatris', true, 4),
-('Palitana Shatrunjaya Hill View', 'palitana', '/images/gallery/palitana-1.jpg', 'Sacred Shatrunjaya hill vista near Taleti Palitana', true, 5),
-('Clean Corridors & Peaceful Courtyard', 'property', '/images/gallery/courtyard-1.jpg', 'Peaceful inner courtyard with lush potted plants and natural sunlight', true, 6);
+('Shri Nirav Khimat Bhavan Authentic Facade', 'property', '/images/gallery/nirav.jpeg', 'Authentic exterior facade and carved architecture of Shri Nirav Khimat Bhavan Dharamshala in Palitana', true, 1),
+('Nirav Khimat Vihar Campus Video Tour', 'property', '/images/gallery/nirav.jpeg', 'Official 58-second video walkthrough tour of Shri Nirav Khimat Bhavan Dharamshala in Palitana', true, 2),
+('Executive Suite Living & Dining Lounge (Room 1)', 'rooms', '/images/gallery/room1.png', 'Room 1 - Suite living room with comfortable sofas, dining area and window view', true, 3),
+('Spacious A/C Guest Bedroom (Room 2)', 'rooms', '/images/gallery/room2.png', 'Room 2 - Triple bedding layout with wood-style flooring, sofa, and split air-conditioning', true, 4),
+('Reception Foyer & Pilgrim Waiting Lounge (Room 3)', 'property', '/images/gallery/room3.png', 'Room 3 - Reception waiting hall with star-inlaid granite floor and luxury sofas', true, 5),
+('Sunlit Balcony Lounge & Jharokha Vistas (Room 4)', 'property', '/images/gallery/room4.png', 'Room 4 - Balcony lounge hall with glass sliding doors and traditional carved jharokha view', true, 6),
+('Bhojanshala Satvik Dining', 'dining', 'https://oswalyatrikgruh.org/images/bhojnalay/bhojnalay-1.jpg', 'Pure Jain Bhojanshala dining facility serving traditional satvik meals', true, 7),
+('Palitana Shatrunjaya Hill View', 'palitana', 'https://oswalyatrikgruh.org/images/temples/temple-1.jpg', 'Sacred Shatrunjaya hill vista near Taleti Palitana', true, 8),
+('Clean Corridors & Peaceful Courtyard', 'property', 'https://oswalyatrikgruh.org/images/open-area/open-area-1.jpg', 'Peaceful inner courtyard with lush potted plants and natural sunlight', true, 9);
+
+

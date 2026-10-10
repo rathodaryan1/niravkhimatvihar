@@ -73,10 +73,10 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ["var(--font-cormorant)", "Georgia", "serif"],
-        display: ["var(--font-cormorant)", "Georgia", "serif"],
-        sans: ["var(--font-inter)", "var(--font-hind-vadodara)", "system-ui", "-apple-system", "sans-serif"],
-        gujarati: ["var(--font-hind-vadodara)", "system-ui", "sans-serif"],
+        serif: ["var(--font-inter)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        display: ["var(--font-inter)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        sans: ["var(--font-inter)", "var(--font-hind-vadodara)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        gujarati: ["var(--font-hind-vadodara)", "var(--font-inter)", "system-ui", "sans-serif"],
       },
       fontSize: {
         display: ["clamp(2.2rem, 5vw, 4rem)", { lineHeight: "1.15", letterSpacing: "-0.02em" }],

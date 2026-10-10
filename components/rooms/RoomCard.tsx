@@ -23,16 +23,16 @@ export function RoomCard({ room, checkIn, checkOut, guests }: RoomCardProps) {
   const bookingHref = `/booking?${queryParams.toString()}`;
   const detailsHref = `/rooms/${room.slug}`;
 
-  // Deterministic photo mapping to authentic demo images
+  // Deterministic photo mapping to authentic real images
   const roomImage =
     room.images?.[0]?.storage_path ||
-    (room.slug?.includes('standard')
-      ? '/images/rooms/room-standard-1.jpg'
+    (room.slug?.includes('suite')
+      ? '/images/rooms/room1.png'
       : room.slug?.includes('executive')
-      ? '/images/rooms/room-executive-1.jpg'
+      ? '/images/rooms/room2.png'
       : room.slug?.includes('family')
-      ? '/images/rooms/room-family-1.jpg'
-      : '/images/rooms/room-suite-1.jpg');
+      ? '/images/rooms/room2.png'
+      : '/images/rooms/room2.png');
 
   return (
     <div className="bg-[#FCFAF5] rounded-3xl overflow-hidden border border-[#D8C4A8] shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col group hover:-translate-y-1">
@@ -52,6 +52,7 @@ export function RoomCard({ room, checkIn, checkOut, guests }: RoomCardProps) {
         <div className="absolute top-3.5 left-3.5 z-10 bg-[#1F1511]/80 backdrop-blur-md border border-[#D8C4A8]/40 text-[#FFFDF8] text-[11px] px-3 py-1 rounded-full font-serif flex items-center gap-1.5 shadow-sm">
           <Users className="w-3.5 h-3.5 text-[#B89455]" />
           <span>Up to {room.capacity} Yatris</span>
+          <span className="text-[10px] text-[#B89455] font-mono">• Real</span>
         </div>
 
         {/* Bed Configuration Tag */}

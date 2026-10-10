@@ -19,15 +19,15 @@ export function RoomsShowcase({ rooms, roomTypes }: RoomsShowcaseProps) {
 
   const getDemoImage = (room: RoomType, idx: number) => {
     if (room.images?.[0]?.storage_path) return room.images[0].storage_path;
-    if (room.slug?.includes('standard')) return '/images/rooms/room-standard-1.jpg';
-    if (room.slug?.includes('executive')) return '/images/rooms/room-executive-1.jpg';
-    if (room.slug?.includes('family')) return '/images/rooms/room-family-1.jpg';
-    if (room.slug?.includes('suite')) return '/images/rooms/room-suite-1.jpg';
+    if (room.slug?.includes('suite')) return '/images/rooms/room1.png';
+    if (room.slug?.includes('executive')) return '/images/rooms/room2.png';
+    if (room.slug?.includes('family')) return '/images/rooms/room2.png';
+    if (room.slug?.includes('standard')) return '/images/rooms/room2.png';
     return idx === 0
-      ? '/images/rooms/room-standard-1.jpg'
+      ? '/images/rooms/room2.png'
       : idx === 1
-      ? '/images/rooms/room-executive-1.jpg'
-      : '/images/rooms/room-family-1.jpg';
+      ? '/images/rooms/room1.png'
+      : '/images/rooms/room4.png';
   };
 
   return (
@@ -79,9 +79,10 @@ export function RoomsShowcase({ rooms, roomTypes }: RoomsShowcaseProps) {
                   {/* Gradient for Card Legibility */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#241A15]/80 via-transparent to-transparent" />
 
-                  {/* Index Pill */}
-                  <div className="absolute top-4 left-4 z-20 bg-[#241A15]/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#C7A15A]/40 text-[#C7A15A] font-serif font-bold text-xs">
-                    0{idx + 1}
+                  {/* Index Pill & Real Photo Indicator */}
+                  <div className="absolute top-4 left-4 z-20 bg-[#241A15]/85 backdrop-blur-md px-3 py-1 rounded-full border border-[#C7A15A]/40 text-[#C7A15A] font-serif font-bold text-xs flex items-center gap-1.5 shadow-sm">
+                    <span>0{idx + 1}</span>
+                    <span className="text-[10px] text-[#FFFDF8]/80 font-mono tracking-wider">• Real Photo</span>
                   </div>
 
                   {/* Capacity Pill */}

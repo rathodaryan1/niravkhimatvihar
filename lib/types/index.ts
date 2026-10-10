@@ -177,6 +177,8 @@ export interface GalleryItem {
   title: string;
   category: 'property' | 'rooms' | 'dining' | 'palitana' | 'common';
   image_url: string;
+  video_url?: string;
+  media_type?: 'image' | 'video';
   thumbnail_url?: string;
   alt_text: string;
   is_active: boolean;
